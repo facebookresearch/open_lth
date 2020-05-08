@@ -14,7 +14,7 @@ It was created by [Jonathan Frankle](http://www.jfrankle.com) during his time as
 
 ### Citation
 
-If you use this library in a research paper, please cite it.
+If you use this library in a research paper, please cite this repository.
 
 ### License
 
