@@ -14,18 +14,7 @@ It was created by [Jonathan Frankle](http://www.jfrankle.com) during his time as
 
 ### Citation
 
-If you use this library in a research paper, please cite [_The Early Phase of Neural Network Training_](https://openreview.net/forum?id=Hkl1iRNFwS), the paper for which this library was developed. You may use the bibtex below:
-
-```
-@inproceedings{
-    frankle_earlyphase_2020,
-    title={The Early Phase of Neural Network Training},
-    author={Jonathan Frankle and David J. Schwab and Ari S. Morcos},
-    booktitle={International Conference on Learning Representations},
-    year={2020},
-    url={https://openreview.net/forum?id=Hkl1iRNFwS}
-}
-```
+If you use this library in a research paper, please cite it.
 
 ### License
 
@@ -170,7 +159,7 @@ To run a lottery ticket experiment, use the `lottery` subcommand. You will need 
 python open_lth.py lottery --help
 ```
 
-For pruning, you will need to specify a value for the `--pruning_strategy` hyperparameter. By default, the framework includes only one pruning strategy: pruning the lowest magnitude weights globally in a sparse fashion (`sparse_global`). (For instructions on adding new pruning strategies, see XXX.)
+For pruning, you will need to specify a value for the `--pruning_strategy` hyperparameter. By default, the framework includes only one pruning strategy: pruning the lowest magnitude weights globally in a sparse fashion (`sparse_global`). (For instructions on adding new pruning strategies, see Section 4.7.)
 
 Once again, it is easiest to load the default hyperparameters for a model (which includes the pruning strategy and other pruning details) using the `--default_hparams` argument. In addition, you will need to specify the number of times that the network should be pruned, rewound, and retrained, known as the number of pruning _levels_. To do so, use the `--levels` flag. Level 0 is training the full network; specifying `--levels=3` would then prune, rewind, and retrain a further three times.
 
