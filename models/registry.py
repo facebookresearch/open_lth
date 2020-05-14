@@ -31,7 +31,9 @@ def get(model_hparams: ModelHparams, outputs=None):
         raise ValueError('No batchnorm initializer: {}'.format(model_hparams.batchnorm_init))
 
     # Create the overall initializer function.
-    def init_fn(w): bn_initializer(initializer(w))
+    def init_fn(w):
+        initializer(w)
+        bn_initializer(w)
 
     # Select the model.
     model = None
