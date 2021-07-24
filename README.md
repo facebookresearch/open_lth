@@ -181,7 +181,7 @@ If you wish to use the same hyperparameters for pretraining and the training pro
 python open_lth.py lottery --default_hparams=cifar_resnet_20 --levels=3 --rewinding_steps=500it
 ```
 
-If you wish to have different behavior during the pre-training phase (e.g., to pre-train with self-supervised rotation or even on a different task), use the `--pretrain` argument.  After doing so, the `--help` interface will offer the full suite of pretraining hyperparameters, including learning rate, batch size, dataset, etc. By default, it will pretrain using the same hyperparameters as specified for standard training. You will noueed to set the `--pretrain_training_steps` argument to the number of steps for which you wish to pretrain. Note that the network will still only train for the number of steps specified in `--training_steps`. Any steps specified in `--pretrain_training_steps` will be subtracted from `--training_steps`. In addition, the main phase of training will start from step `--pretrain_training_steps`, including the learning rate and state of the dataset at that step.
+If you wish to have different behavior during the pre-training phase (e.g., to pre-train with self-supervised rotation or even on a different task), use the `--pretrain` argument.  After doing so, the `--help` interface will offer the full suite of pretraining hyperparameters, including learning rate, batch size, dataset, etc. By default, it will pretrain using the same hyperparameters as specified for standard training. You will need to set the `--pretrain_training_steps` argument to the number of steps for which you wish to pretrain. Note that the network will still only train for the number of steps specified in `--training_steps`. Any steps specified in `--pretrain_training_steps` will be subtracted from `--training_steps`. In addition, the main phase of training will start from step `--pretrain_training_steps`, including the learning rate and state of the dataset at that step.
 
 ### 2.7 Lottery Ticket Branches
 
@@ -216,7 +216,7 @@ python open_lth.py lottery_branch randomly_prune --default_hparams=cifar_resnet_
 
 ### 2.8 Accessing Results
 
-All experiments are automatically named according to their hyperparameters. Specifically, all required hyperparameters and all optional hyperparameters that are specified are combined in a canonical fashion and hashed. This hash is the name under which the experiment is stored. The results of a training run are then stored under:
+All experiments are automatically named according to their hyperparameters. Specifically, all required hyperparameters and all optional hyperparameters that are specified and combined in a canonical fashion and hashed. This hash is the name under which the experiment is stored. The results of a training run are then stored under:
 
 ```
 <root>/train_<hash>/replicate_<replicate>/main
