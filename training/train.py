@@ -111,7 +111,7 @@ def train(
 
             # Otherwise, train.
             examples = examples.to(device=get_platform().torch_device)
-            labels = labels.to(device=get_platform().torch_device)
+            labels = labels.to(device=get_platform().torch_device).long()
 
             step_optimizer.zero_grad()
             model.train()
