@@ -47,7 +47,7 @@ def train(
         after the last training step. Each function takes five arguments: the current step,
         the output location, the model, the optimizer, and the logger.
         Callbacks are used for running the test set, saving the logger, saving the state of the
-        model, etc. The provide hooks into the training loop for customization so that the
+        model, etc. They provide hooks into the training loop for customization so that the
         training loop itself can remain simple.
       * start_step: The step at which the training data and learning rate schedule should begin.
         Defaults to step 0.
