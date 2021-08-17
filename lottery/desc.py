@@ -66,13 +66,13 @@ class LotteryDesc(Desc):
         # Get the proper pruning hparams.
         pruning_strategy = arg_utils.maybe_get_arg('pruning_strategy')
         if defaults and not pruning_strategy: pruning_strategy = defaults.pruning_hparams.pruning_strategy
+        def_ph = None
         if pruning_strategy:
             pruning_hparams = pruning.registry.get_pruning_hparams(pruning_strategy)
             if defaults and defaults.pruning_hparams.pruning_strategy == pruning_strategy:
                 def_ph = defaults.pruning_hparams
         else:
             pruning_hparams = hparams.PruningHparams
-            def_ph = None
 
         # Add the main arguments.
         hparams.DatasetHparams.add_args(parser, defaults=defaults.dataset_hparams if defaults else None)
