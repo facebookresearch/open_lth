@@ -58,8 +58,8 @@ This framework and its predecessors were developed in the course of conducting r
 ### 2.1 Requirements
 
 * Python 3.7 or greater (this framework extensively uses features from Python 3.7)
-* [PyTorch 1.4 or greater](https://www.pytorch.org)
-* TorchVision 0.5.0 or greater
+* [PyTorch 1.4 or greater but lower than 1.10](https://www.pytorch.org)
+* TorchVision 0.5.0 or greater but lower than 0.11
 * [NVIDIA Apex](https://anaconda.org/conda-forge/nvidia-apex) (optional, but required for 16-bit training)
 
 ### 2.2 Setup
