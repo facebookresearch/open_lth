@@ -13,7 +13,7 @@ import lottery.desc
 from platforms.platform import get_platform
 
 
-class Model(abc.ABC, torch.nn.Module):
+class Model(torch.nn.Module, abc.ABC):
     """The base class used by all models in this codebase."""
 
     @staticmethod
