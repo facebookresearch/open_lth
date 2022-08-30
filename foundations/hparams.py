@@ -81,6 +81,25 @@ class Hparams(abc.ABC):
 
         return cls(**d)
 
+    @classmethod
+    def create_from_dict(cls, d: dict, prefix: str = None) -> 'Hparams':
+        for field in fields(cls):
+            if field.name.startswith('_'): continue
+
+            key = f'{field.name}' if prefix is None else f'{prefix}_{field.name}'
+
+            if key in d:
+                # Cast to the appropriate type
+                if field.type in [bool, float, int]:
+                    d[key] = field.type(d[key])
+
+                # Nested hparams.
+                elif isinstance(field.type, type) and issubclass(field.type, Hparams):
+                    d[key] = field.type.create_from_dict(d[key], prefix=key if prefix else '')
+
+        return cls(**d)
+
+
     @property
     def display(self):
         nondefault_fields = [f for f in fields(self)
