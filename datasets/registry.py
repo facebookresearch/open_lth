@@ -4,10 +4,11 @@
 # LICENSE file in the root directory of this source tree.
 
 import numpy as np
-
+from torch.utils.data import Subset
 from datasets import base, cifar10, mnist, imagenet
 from foundations.hparams import DatasetHparams
 from platforms.platform import get_platform
+
 
 registered_datasets = {'cifar10': cifar10, 'mnist': mnist, 'imagenet': imagenet}
 
@@ -30,6 +31,14 @@ def get(dataset_hparams: DatasetHparams, train: bool = True):
     # Transform the dataset.
     if train and dataset_hparams.random_labels_fraction is not None:
         dataset.randomize_labels(seed=seed, fraction=dataset_hparams.random_labels_fraction)
+
+    if dataset_hparams.subset_start is not None or dataset_hparams.subset_stride != 1 or dataset_hparams.subset_end is not None:
+        if dataset_hparams.subsample_fraction is not None:
+            raise ValueError("Cannot have both subsample_fraction and subset_[start,end,stride]")
+        subset_start = 0 if dataset_hparams.subset_start is None else dataset_hparams.subset_start
+        subset_end = len(dataset) if dataset_hparams.subset_end is None else dataset_hparams.subset_end
+        subset_stride = 1 if dataset_hparams.subset_stride is None else dataset_hparams.subset_stride
+        dataset = Subset(dataset, np.arange(subset_start, subset_end, subset_stride))
 
     if train and dataset_hparams.subsample_fraction is not None:
         dataset.subsample(seed=seed, fraction=dataset_hparams.subsample_fraction)
