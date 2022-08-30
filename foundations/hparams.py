@@ -128,6 +128,9 @@ class DatasetHparams(Hparams):
     do_not_augment: bool = False
     transformation_seed: int = None
     subsample_fraction: float = None
+    subset_start: int = None
+    subset_end: int = None
+    subset_stride: int = 1
     random_labels_fraction: float = None
     unsupervised_labels: str = None
     blur_factor: int = None
@@ -140,6 +143,9 @@ class DatasetHparams(Hparams):
     _transformation_seed: str = 'The random seed that controls dataset transformations like ' \
                                 'random labels, subsampling, and unsupervised labels.'
     _subsample_fraction: str = 'Subsample the training set, retaining the specified fraction: float in (0, 1]'
+    _subset_start: str = 'If set, use a Subset with indices range(subset_start, subset_end, subset_stride)'
+    _subset_end: str = 'If set, use a Subset with indices range(subset_start, subset_end, subset_stride)'
+    _subset_stride: str = 'Stride of subset indices (default 1)'
     _random_labels_fraction: str = 'Apply random labels to a fraction of the training set: float in (0, 1]'
     _unsupervised_labels: str = 'Replace the standard labels with alternative, unsupervised labels. Example: rotation'
     _blur_factor: str = 'Blur the training set by downsampling and then upsampling by this multiple.'
