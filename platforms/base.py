@@ -24,14 +24,7 @@ class Platform(Hparams):
 
     @property
     def device_str(self):
-        # GPU device.
-        if torch.cuda.is_available() and torch.cuda.device_count() > 0:
-            device_ids = ','.join([str(x) for x in range(torch.cuda.device_count())])
-            return f'cuda:{device_ids}'
-
-        # CPU device.
-        else:
-            return 'cpu'
+        return 'cuda' if torch.cuda.is_available() else 'cpu'
 
     @property
     def torch_device(self):

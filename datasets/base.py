@@ -12,7 +12,7 @@ import torchvision
 from platforms.platform import get_platform
 
 
-class Dataset(abc.ABC, torch.utils.data.Dataset):
+class Dataset(torch.utils.data.Dataset, abc.ABC):
     """The base class for all datasets in this framework."""
 
     @staticmethod
