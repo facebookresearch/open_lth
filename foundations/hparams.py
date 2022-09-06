@@ -160,6 +160,7 @@ class TrainingHparams(Hparams):
     warmup_steps: str = None
     weight_decay: float = None
     apex_fp16: bool = False
+    save_every_n_epochs: int = None
 
     _name: str = 'Training Hyperparameters'
     _description: str = 'Hyperparameters that determine how the model is trained.'
@@ -175,6 +176,7 @@ class TrainingHparams(Hparams):
     _warmup_steps: str = "Steps of linear lr warmup at the start of training as epochs ('20ep') or iterations ('800it')"
     _weight_decay: str = 'The L2 penalty to apply to the weights.'
     _apex_fp16: bool = 'Whether to train the model in float16 using the NVIDIA Apex library.'
+    _save_every_n_epochs: int = 'Save weights epN_it0 every time epoch N is divisible by this value (default None)'
 
 
 @dataclass

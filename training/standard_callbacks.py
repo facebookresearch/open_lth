@@ -110,10 +110,19 @@ def run_at_step(step1, callback):
     return modified_callback
 
 
+def run_every_n_epochs(callback, n, offset=0):
+    def modified_callback(output_location, step, model, optimizer, logger):
+        if step.it != 0 or (step.ep - offset) % n != 0:
+            return
+        callback(output_location, step, model, optimizer, logger)
+    return modified_callback
+
+
 # The standard set of callbacks that should be used for a normal training run.
 def standard_callbacks(training_hparams: hparams.TrainingHparams, train_set_loader: DataLoader,
                        test_set_loader: DataLoader, eval_on_train: bool = False, verbose: bool = True,
-                       start_step: Step = None, evaluate_every_epoch: bool = True):
+                       start_step: Step = None, evaluate_every_epoch: bool = True,
+                       save_every_n_epochs: int = None):
     start = start_step or Step.zero(train_set_loader.iterations_per_epoch)
     end = Step.from_str(training_hparams.training_steps, train_set_loader.iterations_per_epoch)
     test_eval_callback = create_eval_callback('test', test_set_loader, verbose=verbose)
@@ -130,6 +139,9 @@ def standard_callbacks(training_hparams: hparams.TrainingHparams, train_set_load
     # Test every epoch if requested.
     if evaluate_every_epoch: result = [run_every_epoch(test_eval_callback)] + result
     elif verbose: result.append(run_every_epoch(create_timekeeper_callback()))
+
+    # Save model weights every N epochs if requested
+    if save_every_n_epochs is not None: result.append(run_every_n_epochs(save_model, n=save_every_n_epochs, offset=0))
 
     # Ensure that testing occurs at least at the beginning and end of training.
     if start.it != 0 or not evaluate_every_epoch: result = [run_at_step(start, test_eval_callback)] + result
