@@ -20,6 +20,7 @@ class TrainingRunner(Runner):
     desc: TrainingDesc
     verbose: bool = True
     evaluate_every_epoch: bool = True
+    save_every_n_epochs: int = None
 
     @staticmethod
     def description():
@@ -33,7 +34,7 @@ class TrainingRunner(Runner):
     @staticmethod
     def create_from_args(args: argparse.Namespace) -> 'TrainingRunner':
         return TrainingRunner(args.replicate, TrainingDesc.create_from_args(args),
-                              not args.quiet, not args.evaluate_only_at_end)
+                              not args.quiet, not args.evaluate_only_at_end, args.save_every_n_epochs)
 
     def display_output_location(self):
         print(self.desc.run_path(self.replicate))
@@ -46,4 +47,5 @@ class TrainingRunner(Runner):
         self.desc.save(self.desc.run_path(self.replicate))
         train.standard_train(
             models.registry.get(self.desc.model_hparams), self.desc.run_path(self.replicate),
-            self.desc.dataset_hparams, self.desc.training_hparams, evaluate_every_epoch=self.evaluate_every_epoch)
+            self.desc.dataset_hparams, self.desc.training_hparams, evaluate_every_epoch=self.evaluate_every_epoch,
+            save_every_n_epochs=self.save_every_n_epochs)
